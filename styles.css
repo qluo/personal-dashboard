@@ -27,4 +27,12 @@
 /* A full-width daily huddle above the two income rings. */
 .salary>.dashboard-top{display:block;margin:24px 0 26px}.dashboard-top .daily-huddle{display:grid;grid-template-columns:minmax(180px,1fr) minmax(0,2fr);align-items:center;gap:28px;text-align:left;padding:22px 0;border-top:1px solid #c7d1bb;border-bottom:1px solid #c7d1bb}.dashboard-top .daily-huddle .joke{margin:0}.salary>.dashboard-top+.ring-grid{margin-top:24px}@media(max-width:600px){.dashboard-top .daily-huddle{grid-template-columns:1fr;gap:12px}}
 
-.salary-summary{display:flex;align-items:baseline;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;margin-top:18px;color:#59684d;font-size:14px}.salary-summary>span{white-space:nowrap}.salary-summary strong{margin-left:10px;color:var(--ink);font-size:22px;font-weight:500;font-variant-numeric:tabular-nums}@media(max-width:600px){.salary-summary{justify-content:flex-start;font-size:13px;gap:8px 20px}.salary-summary strong{font-size:20px}}
+/* Salary facts: one spacious row with a clear primary value. */
+.salary-summary{display:flex;align-items:center;gap:0;flex-wrap:wrap;margin:24px 0 8px;color:#59684d;font-size:14px;font-variant-numeric:tabular-nums;row-gap:18px}
+.summary-annual{display:flex;align-items:baseline;gap:14px;padding-right:32px}
+.summary-label{font-size:13px;color:#59684d}
+.summary-annual strong{font-size:26px;font-weight:550;letter-spacing:-.02em;color:var(--ink)}
+.summary-rate{padding:4px 28px;border-left:1px solid #c1cdb5;white-space:nowrap;line-height:1.5}
+#salary-heading{gap:18px}#year-label{font-size:13px}
+@media(max-width:850px){.summary-annual{flex-basis:100%;padding-right:0}.summary-rate{padding:0 20px}.summary-rate:nth-child(2){border-left:0;padding-left:0}}
+@media(max-width:420px){.salary-summary{row-gap:12px}.summary-annual{gap:10px}.summary-annual strong{font-size:24px}.summary-rate{font-size:12px;padding-right:0;padding-left:14px}.summary-rate:nth-child(2){padding-right:14px}}
