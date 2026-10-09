@@ -26,3 +26,5 @@
 
 /* A full-width daily huddle above the two income rings. */
 .salary>.dashboard-top{display:block;margin:24px 0 26px}.dashboard-top .daily-huddle{display:grid;grid-template-columns:minmax(180px,1fr) minmax(0,2fr);align-items:center;gap:28px;text-align:left;padding:22px 0;border-top:1px solid #c7d1bb;border-bottom:1px solid #c7d1bb}.dashboard-top .daily-huddle .joke{margin:0}.salary>.dashboard-top+.ring-grid{margin-top:24px}@media(max-width:600px){.dashboard-top .daily-huddle{grid-template-columns:1fr;gap:12px}}
+
+.salary-summary{display:flex;align-items:baseline;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;margin-top:18px;color:#59684d;font-size:14px}.salary-summary>span{white-space:nowrap}.salary-summary strong{margin-left:10px;color:var(--ink);font-size:22px;font-weight:500;font-variant-numeric:tabular-nums}@media(max-width:600px){.salary-summary{justify-content:flex-start;font-size:13px;gap:8px 20px}.salary-summary strong{font-size:20px}}
