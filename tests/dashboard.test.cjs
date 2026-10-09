@@ -17,11 +17,11 @@ test('start dates, year end and daily boundaries',()=>{
 });
 function load(saved){
  const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
- const nodes=Object.fromEntries([...html.matchAll(/id="([^"]+)"/g)].map(([,id])=>[id,{style:{setProperty(){}},classList:{toggle(){},add(){},remove(){}},replaceChildren(){},appendChild(){},checked:true,setAttribute(k,v){this[k]=v},addEventListener(k,v){this[k]=v},focus(){},reset(){}}]));
+ const nodes=Object.fromEntries([...html.matchAll(/id="([^"]+)"/g)].map(([,id])=>[id,{style:{setProperty(){}},classList:{toggle(){},add(){},remove(){},contains(){return false}},replaceChildren(){},appendChild(){},checked:true,setAttribute(k,v){this[k]=v},addEventListener(k,v){this[k]=v},focus(){},reset(){}}]));
  nodes['work-start'].value='09:00';nodes['work-end'].value='17:00';
  const store=new Map(saved?[['steady.dashboard.v1',JSON.stringify(saved)]]:[]);
  const context={Intl,Date,Math,Number,String,JSON,console,confirm:()=>true,setTimeout(){},clearTimeout(){},document:{createElement(){return {style:{setProperty(){}}}},getElementById:id=>{assert.ok(nodes[id],id);return nodes[id]},addEventListener(){}},localStorage:{getItem:k=>store.get(k),setItem:(k,v)=>store.set(k,v),removeItem:k=>store.delete(k)},setInterval(fn,ms){assert.equal(ms,1000)}};
- vm.createContext(context);for(const file of ['calculations','storage','pets','app'])vm.runInContext(fs.readFileSync(path.join(root,`js/${file}.js`),'utf8'),context);
+ vm.createContext(context);for(const file of ['calculations','storage','pets','delight','app'])vm.runInContext(fs.readFileSync(path.join(root,`js/${file}.js`),'utf8'),context);
  return {nodes,store,context};
 }
 test('settings restore, percentage conversion, updates save and opt-out removes storage',()=>{
@@ -54,4 +54,11 @@ test('return celebration selects latest completed weekday, never a future workda
  assert.equal(vm.runInContext('bonkReaction(.1)',context),'retreated');
  assert.equal(vm.runInContext('bonkReaction(.3)',context),'protesting');
  assert.equal(vm.runInContext('bonkReaction(.8)',context),'bonked');
+});
+
+test('joke is stable all day, changes tomorrow; sky follows time',()=>{
+ const {context}=load();
+ assert.equal(vm.runInContext('jokeForDay(new Date(2026,9,9,8))[0]',context),vm.runInContext('jokeForDay(new Date(2026,9,9,23))[0]',context));
+ assert.notEqual(vm.runInContext('jokeForDay(new Date(2026,9,9))[0]',context),vm.runInContext('jokeForDay(new Date(2026,9,10))[0]',context));
+ for(const [hour,sky] of [[9,'day'],[17,'sunset'],[22,'night']])assert.equal(vm.runInContext(`skyForTime(new Date(2026,9,9,${hour}),'17:00')`,context),sky);
 });

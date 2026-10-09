@@ -18,6 +18,7 @@ $('year-label').textContent=y.year+' calendar year';$('salary-earned').textConte
 $('daily-rate').textContent=money.format(salary/state.total*daily.duration)+' / workday';$('increment').textContent='+'+money.format(salary/state.total*1000)+' / working second';$('bonus-earned').textContent=money.format(bonus*p);$('bonus-target').textContent=money.format(bonus);$('bonus-remaining').textContent=money.format(bonus*(1-p));
 $('bonus-fill').style.transform='scaleX('+p+')';$('bonus-progress').setAttribute('aria-valuenow',(p*100).toFixed(2));$('bonus-progress').setAttribute('aria-valuetext',money.format(bonus*p)+' of '+money.format(bonus));$('bonus-percent').textContent=percent+' accrued';$('bonus-start').textContent=$('accrual-start').textContent;$('bonus-rate').textContent=bonusPercent+'% of base salary';
 $('status').textContent=preview===null?'Live · every second · '+(state.active?'Accruing now':'Paused outside work hours or before start'):'Preview · '+percent+' accrued';$('live').disabled=preview===null;if(preview===null)$('preview-range').value=y.p*100;
+updateDelight(stamp,now,preview!==null,workEnd);
 updatePets(stamp,state.active,{preview:preview!==null,start:startDate,workStart,workEnd,remember:$('remember').checked});
 $('as-of').textContent=(preview===null?'As of ':'Preview: ')+stamp.toLocaleString(undefined,{dateStyle:'medium',timeStyle:'medium'});}
 function showDashboard(){started=true;preview=null;$('setup').hidden=true;$('dashboard').hidden=false;render()}
