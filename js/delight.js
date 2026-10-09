@@ -1,4 +1,3 @@
-// Decorative skies follow local time, not a weather service.
 const dailyJokes=[
  ['Why does the turtle carry three bricks?', 'It’s building wealth at its own pace.'],
  ['Why did the spreadsheet go outside?', 'It needed some fresh rows.'],
@@ -33,12 +32,8 @@ const dailyJokes=[
  ['What’s a turtle’s favorite deadline?', 'One it can see from here.']
 ];
 function jokeForDay(date){const day=Math.floor(Date.UTC(date.getFullYear(),date.getMonth(),date.getDate())/86400000);return dailyJokes[((day%dailyJokes.length)+dailyJokes.length)%dailyJokes.length]}
-function skyForTime(date,workEnd){const minute=date.getHours()*60+date.getMinutes(),end=timeMinutes(workEnd);return minute<360||minute>=Math.max(1200,end+90)?'night':minute>=end-60?'sunset':'day'}
 let nextSurpriseAt=Date.now()+20000,surpriseUntil=0,surprisePet=null;
 function updateDelight(stamp,now,isPreview,workEnd){
- const sky=skyForTime(stamp,workEnd);
- document.getElementById('weather-widget').setAttribute('data-sky',sky);
- document.getElementById('sky-label').textContent={day:'A little sunshine for your steady steps.',sunset:'Golden hour. Every little step counts.',night:'Under the stars. Time to recharge.'}[sky];
  const [setup,punchline]=jokeForDay(now);document.getElementById('joke-setup').textContent=setup;document.getElementById('joke-punchline').textContent=punchline;
  if(surprisePet&&(Date.now()>=surpriseUntil||isPreview||document.hidden)){
   surprisePet.classList.remove('butterfly-visit','brick-slip');surprisePet=null;

@@ -56,9 +56,8 @@ test('return celebration selects latest completed weekday, never a future workda
  assert.equal(vm.runInContext('bonkReaction(.8)',context),'bonked');
 });
 
-test('joke is stable all day, changes tomorrow; sky follows time',()=>{
+test('joke is stable all day and changes tomorrow',()=>{
  const {context}=load();
  assert.equal(vm.runInContext('jokeForDay(new Date(2026,9,9,8))[0]',context),vm.runInContext('jokeForDay(new Date(2026,9,9,23))[0]',context));
  assert.notEqual(vm.runInContext('jokeForDay(new Date(2026,9,9))[0]',context),vm.runInContext('jokeForDay(new Date(2026,9,10))[0]',context));
- for(const [hour,sky] of [[9,'day'],[17,'sunset'],[22,'night']])assert.equal(vm.runInContext(`skyForTime(new Date(2026,9,9,${hour}),'17:00')`,context),sky);
 });
